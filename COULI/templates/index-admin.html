@@ -7,12 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1 style="text-align: center; padding-bottom: 150px;">Bienvenu</h1>
+    <h2 style="text-align: center; padding-bottom: 150px;">Bienvenu</h2>
 
 <!-- les trois premiers cours recents -->
 <div class="container">
+    <h4>Mes Cours</h4>
+    <button type="button" class="btn btn-primary"><a href="{% url 'addAdmin' %}" style="color: white;"> Ajouter des cours</a></button>
     <div class="row">
-        <div class="card col-md-6" style="width: 18rem;">
+        <div class="card col-md-4" style="width: 18rem;">
             <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -20,7 +22,7 @@
                 <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card col-md-6" style="width: 18rem;">
+        <div class="card col-md-4" style="width: 18rem;">
             <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -28,7 +30,7 @@
                 <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card col-md-6" style="width: 18rem;">
+        <div class="card col-md-4" style="width: 18rem;">
             <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -36,7 +38,9 @@
                 <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
+        
     </div>
+
     
 </div>
     
