@@ -14,7 +14,7 @@ python -m venv couli_venv
 
 ### pour windows
 ```python
-source couli_venv/Script/activate
+source couli_venv/Scripts/activate
 cd Couli
 pip install -r requirements.txt
 ```
