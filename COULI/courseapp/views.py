@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 import json
 
-# from filetype.match import image
-
 from . import models
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -163,3 +161,45 @@ def addChap(request, slug):
         'slug':slug,
     }
     return render(request, 'add-chapitre.html', data)
+
+
+@csrf_exempt
+def addChapApi(request):
+    if request.method == "POST":
+        try:
+            try:
+                postdata = json.loads(request.body.decode('utf-8'))
+                titre = postdata['titre']
+                slug = postdata['slug']
+                description = postdata['description']
+            except:
+                titre = request.POST.get("titre")
+                description = request.POST.get("description")
+                slug = request.POST.get("slug")
+                
+          
+          
+            cours = models.Cours.objects.get(slug=slug)
+            print("le cours :", cours)
+            chapitre = models.Chapitre(cours=cours,titre=titre, description=description,)
+            chapitre.save()
+            
+            url="indexAdmin"
+            # print(url)
+            success = True
+            message = "Votre chapitre a été enregistré avec succès"
+        except Exception as e:
+            print(str(e))
+            success = False
+            message = "Une erreur est survenue veillez à contacter le Webmaster."
+    else:
+        success = False
+        message = "Erreur de Requête"
+        url=""
+
+    data = {
+        'success': success,
+        'message': message,
+        'url': url,
+    }
+    return JsonResponse(data, safe=False)

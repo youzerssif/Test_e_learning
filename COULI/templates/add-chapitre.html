@@ -1,32 +1,116 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E Learning</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E Learning</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <h1 style="text-align: center; padding-bottom: 150px;">Ajoutez un chapitre</h1>
-    
-<div class="container" style="width: 500px;">
+  <h1 style="text-align: center; padding-bottom: 150px;">Ajoutez un chapitre</h1>
+
+  <div class="container" style="width: 500px;" id="addchap">
     <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">titre</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="description">description</label>
-          <textarea  class="form-control" id="description" placeholder="description"></textarea>
-        </div>
-        <hr>
+      <div class="form-group">
+        <label for="exampleInputEmail1">titre</label>
+        <input v-model="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="description">description</label>
+        <textarea v-model="description" class="form-control" id="description" placeholder="description"></textarea>
+      </div>
+      <hr>
 
 
-        <button type="submit" class="btn btn-primary">ajouter</button>
-        <button type="submit" class="btn btn-info">ajouter et Creer</button>
+      <button v-if="!is_submited" v-on:click="addChap" class="btn btn-primary">ajouter</button>
+      <button type="submit" class="btn btn-info">ajouter et Creer</button>
     </form>
-</div>
-    
+  </div>
+
+  <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+  <script>
+    new Vue({
+      el: '#addchap',
+      data: {
+        titre: "",
+        description: "",
+        slug: "",
+        is_submited: false,
+      },
+      delimiters: ["${", "}"],
+      mounted() {
+        this.slug="{{ slug }}";
+      },
+      methods: {
+
+        addChap: function () {
+          if (!this.titre) {
+            Swal.fire({
+              icon: 'warning',
+              html: '<h4>Veuillez remplir le champs Titre.</h4>',
+            });
+          }
+          else if (!this.description) {
+            Swal.fire({
+              icon: 'warning',
+              html: '<h4>Veuillez remplir le champs description.</h4>',
+            });
+          }
+          else {
+            this.is_submited = true
+            let formData = new FormData();
+            formData.append('titre', this.titre);
+            formData.append('description', this.description);
+            formData.append('slug', this.slug);
+            axios.defaults.xsrfCookieName = 'csrftoken';
+            axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+            axios.post("{% url 'addChapApi' %}", formData, {})
+              .then((response) => {
+                if (response.data.success) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: response.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  console.log(response.data.url)
+                  window.location.replace(response.data.url)
+                  this.is_submited = false
+
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: response.data.message,
+                    // timer: 2000
+                  });
+                  console.log(response.data)
+                  this.is_submited = false
+                }
+              })
+              .catch((err) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Une erreur est survenu veuillez reessayer',
+                  footer: "<a href>Les developpeurs s'excusent pour les desagrements?</a>",
+                  timer: 3000
+                });
+                console.log(err);
+                this.is_submited = false
+              })
+          }
+        }
+      },
+    })
+  </script>
 
 </body>
+
 </html>
