@@ -29,7 +29,7 @@
             <hr>
 
 
-            <button v-if="!isregister" v-on:click="addCours" class="btn btn-primary">Envoyer</button>
+            <button v-if="!is_submited" v-on:click="addCours" class="btn btn-primary">Envoyer</button>
         </form>
     </div>
 
@@ -97,6 +97,7 @@
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
+                                console.log(response.data.url)
                                 window.location.replace(response.data.url)
                                 this.is_submited = false
     

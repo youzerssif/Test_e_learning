@@ -131,6 +131,7 @@ def addCoursApi(request):
                 description = request.POST.get("description")
                 
           
+          
             user = models.Formateur.objects.get(user=request.user)
             cours = models.Cours(formateur=user,titre=titre, description=description, image=file)
             cours.save()
@@ -156,9 +157,9 @@ def addCoursApi(request):
     return JsonResponse(data, safe=False)
 
 
-def addChap(request):
+def addChap(request, slug):
     
     data = {
-        # 'slug':slug,
+        'slug':slug,
     }
     return render(request, 'add-chapitre.html', data)
