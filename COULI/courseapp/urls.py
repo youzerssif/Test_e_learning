@@ -17,5 +17,6 @@ urlpatterns = [
     path('indexAdmin', views.indexAdmin, name='indexAdmin'),
     path('addAdmin', views.addAdmin, name='addAdmin'),
     path('addChap', views.addChap, name='addChap'),
+    path('addCoursApi', views.addCoursApi, name='addCoursApi'),
 
 ]

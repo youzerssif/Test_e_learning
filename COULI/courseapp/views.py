@@ -4,6 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
+import json
+
+# from filetype.match import image
 
 from . import models
 from django.http import HttpResponse
@@ -111,6 +114,47 @@ def addAdmin(request):
         # 'slug':slug,
     }
     return render(request, 'add-cours.html', data)
+
+
+@csrf_exempt
+def addCoursApi(request):
+    if request.method == "POST":
+        try:
+            try:
+                postdata = json.loads(request.body.decode('utf-8'))
+                file = postdata['file']
+                titre = postdata['titre']
+                description = postdata['description']
+            except:
+                file = request.FILES.get("file")
+                titre = request.POST.get("titre")
+                description = request.POST.get("description")
+                
+          
+            user = models.Formateur.objects.get(user=request.user)
+            cours = models.Cours(formateur=user,titre=titre, description=description, image=file)
+            cours.save()
+            
+            url=f"addChap/{cours.slug}"
+            print(url)
+            success = True
+            message = "Votre cours a été enregistré avec succès"
+        except Exception as e:
+            print(str(e))
+            success = False
+            message = "Une erreur est survenue veillez à contacter le Webmaster."
+    else:
+        success = False
+        message = "Erreur de Requête"
+        url=""
+
+    data = {
+        'success': success,
+        'message': message,
+        'url': url,
+    }
+    return JsonResponse(data, safe=False)
+
 
 def addChap(request):
     
