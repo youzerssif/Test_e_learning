@@ -308,24 +308,99 @@
 </head>
 
 <body>
-    <div class="wrapper fadeInDown">
+    <div class="wrapper fadeInDown" id="user_login_post">
         <div id="formContent">
             <!-- Tabs Titles -->
 
             <!-- Icon -->
             <div class="fadeIn first">
-                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+                <img src="https://i.pinimg.com/originals/97/21/05/972105c5a775f38cf33d3924aea053f1.jpg" id="icon" alt="User Icon" />
             </div>
 
             <!-- Login Form -->
             <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input type="email" id="login" class="form-control" v-model="login_email" placeholder="login">
+                <input type="password" class="form-control" id="password" v-model="login_password" placeholder="password">
+                <input @click.prevent='connexionUser' v-if="!is_submited" class="btn btn-primary" value="Log In">
+                <div class="col-12" v-if="is_submited" >
+                    <div class="lds-facebook"><div></div><div></div><div></div></div>
+                </div>
             </form>
 
         </div>
     </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script>
+        new Vue({
+            el: '#user_login_post',
+            data: {
+                login_email: "",
+                login_password: "",
+                is_submited: false,
+            },
+            delimiters: ["${", "}"],
+            methods: {
+                connexionUser: function() {
+                    if (!this.login_email) {
+                        Swal.fire({
+                            icon: 'warning',
+                            html: '<h4>Veuillez remplir le champs Email.</h4>',
+                        });
+                    }
+                    else if (!this.login_password) {
+                        Swal.fire({
+                            icon: 'warning',
+                            html: '<h4>Veuillez remplir le champs Mot de passe.</h4>',
+                        });
+                    } else {
+                        this.is_submited = true
+                        let formData = new FormData();
+                        formData.append('email', this.login_email);
+                        formData.append('password', this.login_password);
+                        axios.defaults.xsrfCookieName = 'csrftoken';
+                        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+                        axios.post("{% url 'login' %}", formData, {})
+                        .then((response) => {
+                            if (response.data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: response.data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                window.location.replace(response.data.url)
+                                this.is_submited = false
+    
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: response.data.message,
+                                    // timer: 2000
+                                });
+                                console.log(response.data)
+                                this.is_submited = false
+                            }
+                        })
+                        .catch((err) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Une erreur est survenu veuillez reessayer',
+                                footer: "<a href>Les developpeurs s'excusent pour les desagrements?</a>",
+                                timer: 3000
+                            });
+                            console.log(err);
+                            this.is_submited = false
+                        })
+                    }
+                }
+            },
+        })
+    </script>
 </body>
 
 </html>

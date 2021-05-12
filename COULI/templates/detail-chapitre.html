@@ -7,11 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1 style="text-align: center; padding-bottom: 150px;">Chapitre ...</h1>
+    <h1 style="text-align: center; padding-bottom: 150px;">Chapitre {{ chapitre.titre }}</h1>
 
     <div class="jumbotron">
-        <h1 class="display-4">Titre du chapitre</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <h1 class="display-4">{{ chapitre.titre }}</h1>
+        <p class="lead">{{ chapitre.description }}</p>
         
     </div>
 

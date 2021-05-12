@@ -51,15 +51,21 @@ class Cours(models.Model):
     titre = models.CharField(max_length=255, null=True)
     description = models.TextField()
     image = models.FileField(upload_to="cours_image", null=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
     
     status = models.BooleanField(default=True, blank=True, null=True)
     date_add = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_upd = models.DateTimeField(auto_now=True, blank=True, null=True)
     
+    def save(self, *args, **kwargs):
+        self.slug = '-'.join((slugify(self.titre)))
+        super(Cours, self).save(*args, **kwargs)
+    
 
     class Meta:
         """Meta definition for Cours."""
 
+        ordering = ['-date_add',]
         verbose_name = 'Cours'
         verbose_name_plural = 'Courss'
 
@@ -75,11 +81,17 @@ class Chapitre(models.Model):
     cours = models.ForeignKey(Cours, on_delete=models.CASCADE, related_name="chapitre_cours")
     titre = models.CharField(max_length=255, null=True)
     description = models.TextField()
+    slug = models.SlugField(unique=True, null=True, blank=True)
     
     status = models.BooleanField(default=True, blank=True, null=True)
     date_add = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_upd = models.DateTimeField(auto_now=True, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+            self.slug = '-'.join((slugify(self.titre)))
+            super(Chapitre, self).save(*args, **kwargs)
+    
+    
     class Meta:
         """Meta definition for Chapitre."""
 

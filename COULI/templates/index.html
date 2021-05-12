@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,41 +7,47 @@
     <title>E Learning</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1 style="text-align: center; padding-bottom: 150px;">Bienvenu</h1>
 
-<!-- les trois premiers cours recents -->
-<div class="container">
-    <div class="row">
-        <div class="card col-md-6" style="width: 18rem;">
-            <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card col-md-6" style="width: 18rem;">
-            <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card col-md-6" style="width: 18rem;">
-            <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{% url 'chapitre' %}" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; padding-bottom: 150px;">Bienvenu pour le test</h1>
+        <button class="btn btn-primary" style="float: right;"> <a href="{% url 'connexion' %}" style="color: white;"> Se
+                connecter</a></button>
     </div>
-    
-</div>
-    
+
+
+    <!-- les trois premiers cours recents -->
+    <div class="container">
+        <div class="row">
+            <h3 style="padding-bottom: 50px;">Les trois cours recents</h3>
+            {% for cour in cours %}
+
+            {% if forloop.counter < 4 %} <div class="card col-md-6" style="width: 18rem;">
+                <img src="{{ cour.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cour.titre }}</h5>
+                    <b>ajoute:{{ cour.date_add }}</b>
+                    <p class="card-text">{{ cour.description|truncatewords:10 }}</p>
+                    <p>
+                        <b>
+                            Par:{{ cour.formateur }}
+
+                        </b>
+                    </p>
+                    <a href="{% url 'chapitre' cour.slug %}" class="btn btn-primary">lire la suite</a>
+                </div>
+        </div>
+        {% endif %}
+
+
+        {% endfor %}
+
+    </div>
+
+    </div>
+
 
 
 </body>
+
 </html>
