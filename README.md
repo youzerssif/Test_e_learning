@@ -41,5 +41,5 @@ python manage.py createsuperuser
 puis suivre les instructions, se rendre sur admin http://127.0.0.1:8000/admin/ et se connecter
 
 ## Voici le lien youtube pour une presentation de l'interface
-https://youtu.be/XMZxmbRFpuo
+https://youtu.be/0x8a0ICEJ5c
 
