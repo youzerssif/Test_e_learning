@@ -7,8 +7,9 @@ from django.db.models import Q
 import json
 
 from . import models
-from django.http import HttpResponse
-from django.views.generic import ListView
+# from django.http import HttpResponse
+from django.views.generic import DetailView
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -82,16 +83,15 @@ def detailChapitre(request, slug):
     }
     return render(request, 'detail-chapitre.html', data)
 
-# class ChapitresView(ListView):
-#     model = models.Chapitre
+class detailchapitreView(DetailView):
+    model = models.Chapitre
+    template_name = 'detail-chapitre.html'
 
-#     def detailChapitre(self, *args, **kwargs):
-#         chapitre = self.get_queryset()
-#         response = HttpResponse(
+    def detailchapitre_View(request, slug):
 
-#             headers={'chapitre': chapitre},
-#         )
-#         return response
+        chapitre = get_object_or_404(models.Chapitre, slug=slug)
+
+        return render(request, 'detail-chapitre.html', context={'chapitre': chapitre})
 
 
 ############################## Dashboard views #################

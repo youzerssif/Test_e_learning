@@ -10,8 +10,8 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('connexion', views.connexion, name='connexion'),
     path('chapitre/<str:slug>', views.chapitre, name='chapitre'),
-    path('detailchapitre/<str:slug>', views.detailChapitre, name='detailChapitre'),
-    # path("ChapitresView", views.ChapitresView.as_view(), name="ChapitresView"),
+    # path('detailchapitre/<str:slug>', views.detailChapitre, name='detailChapitre'),
+    path('detailchapitre/<str:slug>', views.detailchapitreView.as_view(), name='detailchapitre'),
     
     ################## Admin dashboard ###########
     path('indexAdmin', views.indexAdmin, name='indexAdmin'),

@@ -13,7 +13,7 @@
         <ul class="list-group">
             
             {% for chapitre in chapitres %}
-            <li class="list-group-item"><a href="{% url 'detailChapitre' chapitre.slug %}">{{ chapitre.titre }}</a></li>
+            <li class="list-group-item"><a href="{% url 'detailchapitre' chapitre.slug %}">{{ chapitre.titre }}</a></li>
             {% endfor %}
                 
         
