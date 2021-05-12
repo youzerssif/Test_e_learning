@@ -5,15 +5,19 @@ Ce projet est un test de validation donnée par Soro n'beh
 # Pour lancer l'application
 
 ## 1 vous devez cloner le projet et creer un environnement virtuel couli_venv avec ces commande:
+```python
 python -m venv couli_venv
+```
 
 
 ## 2 activer l'environnement, entrer dans le dossier projet et lancer les installations
 
 ### pour windows
+```python
 source couli_venv/Script/activate
 cd Couli
 pip install -r requirements.txt
+```
 
 ### pour Mac ou linux
 source couli_venv/bin/activate
