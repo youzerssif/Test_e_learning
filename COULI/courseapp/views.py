@@ -165,6 +165,7 @@ def addChap(request, slug):
 
 @csrf_exempt
 def addChapApi(request):
+    url=""
     if request.method == "POST":
         try:
             try:

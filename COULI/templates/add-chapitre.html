@@ -43,6 +43,7 @@
         description: "",
         slug: "",
         is_submited: false,
+        base_url :window.location.origin + "/"
       },
       delimiters: ["${", "}"],
       mounted() {
@@ -81,7 +82,7 @@
                     timer: 1500
                   });
                   // console.log(response.data.url)
-                  window.location.replace(response.data.url)
+                  window.location.replace(this.base_url+response.data.url)
                   this.is_submited = false
 
                 } else {
