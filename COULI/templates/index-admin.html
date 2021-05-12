@@ -15,18 +15,25 @@
 
 <!-- les trois premiers cours recents -->
 <div class="container">
-    <h4>Mes Cours</h4>
+    <h4 style="padding-bottom: 20px;">Mes Cours</h4>
     <button type="button" class="btn btn-primary"><a href="{% url 'addAdmin' %}" style="color: white;"> Ajouter des cours</a></button>
-    <div class="row">
+    <div class="row" style="padding-top: 20px;">
         
         {% for cours in mesCours %}
         <div class="card col-md-4" style="width: 18rem;">
-            <img src="https://img-19.ccm2.net/8vUCl8TXZfwTt7zAOkBkuDRHiT8=/1240x/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ cours.titre }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="{% url 'login' %}" class="btn btn-primary">Go somewhere</a>
-            </div>
+            <img src="{{ cours.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cours.titre }}</h5>
+                    <b>ajoute:{{ cours.date_add }}</b>
+                    <p class="card-text">{{ cours.description|truncatewords:10 }}</p>
+                    <p>
+                        <b>
+                            Par:{{ cours.formateur }}
+
+                        </b>
+                    </p>
+                    <a href="{% url 'chapitre' cours.slug %}" class="btn btn-primary">lire la suite</a>
+                </div>
         </div>
         {% endfor %}
         
