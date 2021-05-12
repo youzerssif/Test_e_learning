@@ -72,16 +72,16 @@ def chapitre(request, slug):
     return render(request, 'chapitre.html', data)
 
 
-def detailChapitre(request, slug):
+# def detailChapitre(request, slug):
     
-    chapitre = models.Chapitre.objects.get(slug=slug)
-    print(chapitre)
+#     chapitre = models.Chapitre.objects.get(slug=slug)
+#     print(chapitre)
     
-    data = {
-        'slug':slug,
-        'chapitre':chapitre,
-    }
-    return render(request, 'detail-chapitre.html', data)
+#     data = {
+#         'slug':slug,
+#         'chapitre':chapitre,
+#     }
+#     return render(request, 'detail-chapitre.html', data)
 
 class detailchapitreView(DetailView):
     model = models.Chapitre
