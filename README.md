@@ -20,18 +20,22 @@ pip install -r requirements.txt
 ```
 
 ### pour Mac ou linux
+```python
 source couli_venv/bin/activate
 cd Couli
 pip install -r requirements.txt
+```
 
 ## 3 Apres les installation faites une migration et lancer l'application
-
+```python
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
+```
 
 
 ## Pour creer un utilisateur et se connecter a la partir admin
-
+```python
 python manage.py createsuperuser
+```
 puis suivre les instructions, se rendre sur admin http://127.0.0.1:8000/admin/ et se connecter
